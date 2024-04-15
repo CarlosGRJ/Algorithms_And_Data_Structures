@@ -1,3 +1,38 @@
+/*
+  Given two strings, write a functionto determine if the second string is an anagram of the first. An anagram is a word, phrase, or name formed by rearranging the letters of another, such as cinema, formed from iceman.
+
+  Exmaples:
+
+  validAnagram('', '')                              // true
+  validAnagram('aaz', 'zza')                        // false
+  validAnagram('anagram', 'nagaram')                // true
+  validAnagram('rat', 'car')                        // false
+  validAnagram('awesome', 'awesom')                 // false
+  validAnagram('qwerty', 'qeywrt')                  // true
+  validAnagram('texttwisttime', 'timetwisttext')    // true
+
+*/
+
+function validAnagram(str1, str2) {
+  if (str1.length !== str2.length) return false;
+
+  if (str1.length === 0 && str2.length === 0) return true;
+
+  const lookup = {};
+
+  for (const char of str1) {
+    lookup[char] = (lookup[char] || 0) + 1;
+  }
+
+  for (const char of str2) {
+    if (!lookup[char]) return false;
+
+    lookup[char] -= 1;
+  }
+
+  return true;
+}
+
 function validAnagram(first, second) {
   if (first.length !== second.length) return false;
 
@@ -19,4 +54,4 @@ function validAnagram(first, second) {
   return true;
 }
 
-console.log(validAnagram('texttwisttime', 'timetwisttext'));
+// console.log(validAnagram('texttwisttime', 'timetwisttext'));
