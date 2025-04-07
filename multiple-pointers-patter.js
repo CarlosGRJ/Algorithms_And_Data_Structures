@@ -60,13 +60,6 @@ Bonus
 You must do this with constant or O(1) space and O(n) time.
 */
 
-function countUniqueValues2(arr) {
-  if (arr.length === 0 || !arr) return 0;
-
-  
-
-}
-
 function countUniqueValues(arr) {
   if (arr.length === 0) return 0;
   let i = 0;

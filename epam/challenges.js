@@ -270,3 +270,188 @@ function mostFrequentChar(str) {
 
   return maxChar;
 }
+
+/**
+ * Demonstrate removing duplicates from a sorted array using both: a Set and Vanilla JS methods
+ *
+ * Examples:
+ *
+ * removeDuplicates([1, 1, 2, 2, 3, 3, 4, 4, 5, 5]);
+ * // Output: [1, 2, 3, 4, 5]
+ */
+
+function removeDuplicatesWithSet(numbers) {
+  if (!numbers || numbers.length === 0) {
+    return [];
+  }
+
+  const uniqueValues = new Set(numbers);
+  return [...uniqueValues];
+}
+
+// console.log('removeDuplicatesWithSet => ', removeDuplicatesWithSet([1, 1, 2, 2, 3, 3, 4, 4, 5, 5]));
+
+function removeDuplicatesWithoutSet(numbers) {
+  if (!numbers || numbers.length === 0) {
+    return [];
+  }
+
+  const uniqueValues = numbers.filter((value, index, arr) => {
+    const firstFoundIndex = arr.indexOf(value);
+    return firstFoundIndex === index;
+  });
+
+  return uniqueValues;
+}
+
+/**
+ * Write a logic to count the maximum number of repeating characters in a string
+ */
+
+function maxRepeatingChar(str) {
+  if (!str) return null;
+
+  const lookup = {};
+  let maxCount = 0;
+  let maxChar = '';
+
+  for (const char of str) {
+    lookup[char] = (lookup[char] || 0) + 1;
+    if (lookup[char] > maxCount) {
+      maxCount = lookup[char];
+      maxChar = char;
+    }
+  }
+
+  return { char: maxChar, count: maxCount };
+}
+
+// console.log(maxRepeatingChar('aabbcddddfgggggggrrr')); // Output: 4
+
+/**
+ * Write a logic to move all O's to the end in an array
+ *
+ * Examples:
+ * moveOsToEnd([1, 2, 0, 3, 0, 4, 5, 0]);
+ * // Output: [1, 2, 3, 4, 5, 0, 0, 0]
+ */
+
+function moveOsToEndA(arr) {
+  if (!arr || arr.length === 0) return [];
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === 0) {
+      arr.push(arr.splice(i, 1)[0]);
+    }
+  }
+
+  return arr;
+}
+
+function moveOsToEndB(arr) {
+  if (!arr || arr.length === 0) return [];
+
+  const noZeros = arr.filter((num) => num !== 0);
+  const countZeros = arr.length - noZeros.length;
+
+  return noZeros.concat(new Array(countZeros).fill(0));
+}
+
+// console.log(
+//   'moveOsToEnd => ',
+//   moveOsToEndB([1, 2, 0, 3, 0, 4, 5, 0, 3, 23, 6, 0, 7, 0, 0, 0, 0]),
+// );
+
+/**
+ * Write a polyfill for forEach method
+ */
+
+if (!Array.prototype.myForEach) {
+  Array.prototype.myForEach = function (callback) {
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    for (let i = 0; i < this.length; i++) {
+      callback(this[i], i, this); // Passes (element, index, array)
+    }
+  };
+}
+
+const arr = [1, 2, 3, 4, 5];
+// arr.myForEach((item, i, arr) => console.log(item, i, arr));
+
+const test = Object.freeze({
+  name: 'test',
+  age: 20,
+});
+
+// test
+test.age = 30;
+test.name = 'test1';
+
+delete test.age;
+console.log('test => ', test);
+
+/**
+ * Find the longest subarray with a sum of 0
+ */
+
+function longestZeroSumSubarray(arr) {
+  let prefixSum = 0;
+  let maxLength = 0;
+  const sumIndexMap = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    prefixSum += arr[i];
+
+    // If sum is 0, update maxLength (from start to current index)
+    if (prefixSum === 0) {
+      maxLength = i + 1;
+    }
+
+    // If the sum was seen before, update maxLength
+    if (sumIndexMap.has(prefixSum)) {
+      maxLength = Math.max(maxLength, i - sumIndexMap.get(prefixSum));
+    } else {
+      // Store the first occurrence of the prefixSum
+      sumIndexMap.set(prefixSum, i);
+    }
+  }
+}
+
+/**
+ *  Find the longest subarray with sum K
+ *  Input: arr = [1, 2, 3, 4, 5], K = 9
+ *  Output: true  // (subarray [2, 3, 4] sums to 9)
+ */
+
+function longestSubarraywithK(arr, k) {
+  let prefixSum = 0;
+  const sumIndexMap = new Map();
+
+  for (let i = 0; i < arr.length; i++) {
+    prefixSum += arr[i];
+
+    if (prefixSum === k) return true;
+
+    if (sumIndexMap.has(prefixSum - k)) return true;
+
+    sumIndexMap.set(prefixSum, i);
+  }
+
+  return false;
+}
+
+console.log(
+  'longestSubarraywithK => ',
+  longestSubarraywithK([1, 1, 1, 1, 2], 9),
+);
+
+/**
+ * Find the largest subarray with equal 0s and 1s
+ */
+
+/**
+ * Find the smallest subarray with sum >= K
+ */

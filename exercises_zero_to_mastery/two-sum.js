@@ -36,6 +36,7 @@
 */
 
 // console.log(findTwoSum([1, 2, 3, 4, 5], 9));
+console.log(findTwoSum([1, 2, 3, 4, 5], 9));
 
 const findTwoSum = function (nums, target) {
   const numsMap = {};
