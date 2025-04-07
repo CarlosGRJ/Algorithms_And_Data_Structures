@@ -8,19 +8,39 @@
   sumZero([1,2,3]) // undefined
 */
 function sumZero(arr) {
-  let left = 0;
-  let right = arr.length - 1;
-  while (left < right) {
-    let sum = arr[left] + arr[right];
+  if (!arr || arr.length <= 0) return undefined;
+
+  let p1 = 0;
+  let p2 = arr.length - 1;
+  while (p1 < p2) {
+    let sum = arr[p1] + arr[p2];
+
     if (sum === 0) {
-      return [arr[left], arr[right]];
+      return [arr[p1], arr[p2]];
     } else if (sum > 0) {
-      right--;
+      p2--;
     } else {
-      left++;
+      p1++;
     }
   }
+
+  return undefined;
 }
+
+// function sumZero(arr) {
+//   let left = 0;
+//   let right = arr.length - 1;
+//   while (left < right) {
+//     let sum = arr[left] + arr[right];
+//     if (sum === 0) {
+//       return [arr[left], arr[right]];
+//     } else if (sum > 0) {
+//       right--;
+//     } else {
+//       left++;
+//     }
+//   }
+// }
 
 sumZero([-4, -3, -2, -1, 0, 1, 2, 3, 10]);
 
@@ -33,7 +53,19 @@ Output Examples:
     countUniqueValues([1,2,3,4,4,4,7,7,12,12,13])  ==>  7
     countUniqueValues([])  ==>  0
     countUniqueValues([-2,-1,-1,0,1])  ==>  4
+
+
+Bonus
+
+You must do this with constant or O(1) space and O(n) time.
 */
+
+function countUniqueValues2(arr) {
+  if (arr.length === 0 || !arr) return 0;
+
+  
+
+}
 
 function countUniqueValues(arr) {
   if (arr.length === 0) return 0;
